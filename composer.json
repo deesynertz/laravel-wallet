@@ -16,10 +16,7 @@
     "autoload": {
         "psr-4": {
             "Deesynertz\\Wallet\\": "src/"
-        },
-        "files": [
-            "src/helper.php"
-        ]
+        }
     },
     "extra": {
         "laravel": {
@@ -30,8 +27,9 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "@php artisan vendor:publish --tag=deesynertz-locate-migrations --force",
-            "@php artisan vendor:publish --tag=deesynertz-locate-config --force"
+            "@php artisan vendor:publish --tag=deesynertz-wallet-config --force",
+            "@php artisan vendor:publish --tag=deesynertz-wallet-migrations --force",
+            "@php artisan vendor:publish --tag=deesynertz-wallet-helpers --force"
         ]
     },
     "minimum-stability": "dev",

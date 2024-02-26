@@ -31,6 +31,20 @@ Add the service provider to the `providers` array in your `config/app.php` file:
 ],
 ```
 
+for aut publish add this into you project `composer.json` on `scripts` section
+
+```php
+    // Other post-autoload-dump...
+
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan vendor:publish --tag=deesynertz-wallet-config --force",
+            "@php artisan vendor:publish --tag=deesynertz-wallet-migrations --force",
+            "@php artisan vendor:publish --tag=deesynertz-wallet-helpers --force"
+        ]
+    },
+```
+
 ### Usage
 
 ## Contributions
