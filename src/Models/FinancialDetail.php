@@ -15,12 +15,12 @@ class FinancialDetail extends Model
     protected $guarded  = ['id'];
     protected $casts    = ['units' => 'array'];
 
-    const COMMISSION    = 'Commission';
-    const SERVICES      = 'Services';
-    const SERVING_ACC   = 'Saving Acc';
-    const RECEIVE_ALL   = 'All';
+    public const COMMISSION    = 'Commission';
+    public const SERVICES      = 'Services';
+    public const SERVING_ACC   = 'Saving Acc';
+    public const RECEIVE_ALL   = 'All';
+    public const ACCOUNTABLE_PURPOSES = [self::SERVICES,self::COMMISSION,self::SERVING_ACC ,self::RECEIVE_ALL];
 
-    const ACCOUNTABLE_PURPOSES = [FinancialDetail::SERVICES,FinancialDetail::COMMISSION,FinancialDetail::SERVING_ACC ,FinancialDetail::RECEIVE_ALL];
 
     public function channel()
     {

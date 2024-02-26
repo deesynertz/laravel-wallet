@@ -11,12 +11,37 @@ class Channel extends Model
 {
     use HasFactory;
     protected $guarded  = ['id'];
+    // public const IS_BANK = 'Banks';
+    // public const IS_MNOS = 'MNOs';
+    // public const CHANNEL_TYPES_KEY  = [Str::lower(Channel::IS_BANK), Str::lower(Channel::IS_MNOS)];
+    // public const CHANNEL_TYPES_ARR  = [Str::lower(Channel::IS_BANK) => Channel::IS_BANK, Str::lower(Channel::IS_MNOS) => Channel::IS_MNOS];
+    // public const CHANNEL_TYPES_STR  = [Channel::IS_BANK, Channel::IS_MNOS];
+
     public const IS_BANK = 'Banks';
     public const IS_MNOS = 'MNOs';
-    public const CHANNEL_TYPES_KEY  = [Str::lower(Channel::IS_BANK), Str::lower(Channel::IS_MNOS)];
-    public const CHANNEL_TYPES_ARR  = [Str::lower(Channel::IS_BANK) => Channel::IS_BANK, Str::lower(Channel::IS_MNOS) => Channel::IS_MNOS];
-    public const CHANNEL_TYPES_STR  = [Channel::IS_BANK, Channel::IS_MNOS];
+    public array $channelTypesKey;
+    public array $channelTypesArr;
+    public array $channelTypesStr;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->channelTypesKey = [
+            Str::lower(self::IS_BANK),
+            Str::lower(self::IS_MNOS)
+        ];
+
+        $this->channelTypesArr = [
+            Str::lower(self::IS_BANK) => self::IS_BANK,
+            Str::lower(self::IS_MNOS) => self::IS_MNOS
+        ];
+
+        $this->channelTypesStr = [
+            self::IS_BANK,
+            self::IS_MNOS
+        ];
+    }
 
     public function activeChannels()
     {

@@ -13,14 +13,15 @@ class CreateWalletsTable extends Migration
      */
     public function up()
     {
+        $models = config('wallet.models');
         $tableNames = config('wallet.table_names');
         $columnNames = config('wallet.column_names');
 
-        Schema::create($tableNames['channels'], function (Blueprint $table) use($tableNames) {
+        Schema::create($tableNames['channels'], function (Blueprint $table) use($models) {
             $table->id();
             $table->string('title')->unique();
             $table->string('abbr')->nullable();
-            $table->enum('type', $tableNames['channels']::CHANNEL_TYPES_KEY);
+            $table->enum('type', (new $models['channels'])->channelTypesKey);
             $table->boolean('is_active')->default(true);
             $table->string('url')->nullable();
             $table->string('logo')->nullable();
@@ -35,7 +36,7 @@ class CreateWalletsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create($tableNames['financial_details'], function (Blueprint $table) use($tableNames, $columnNames) {
+        Schema::create($tableNames['financial_details'], function (Blueprint $table) use($models, $tableNames, $columnNames) {
             $table->id();
             $table->foreignId($columnNames['channel_key'])
                 ->constrained($tableNames['channels'], 'id')
@@ -45,8 +46,8 @@ class CreateWalletsTable extends Migration
                 ->constrained($tableNames['financials'], 'id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->enum('purpose', $tableNames['financial_details']::ACCOUNTABLE_PURPOSES)
-                ->default($tableNames['financial_details']::RECEIVE_ALL);
+            $table->enum('purpose', (new $models['financial_details'])::ACCOUNTABLE_PURPOSES)
+                ->default((new $models['financial_details'])::RECEIVE_ALL);
             $table->string('acc_name')->default(null);
             $table->string('body');
             $table->boolean('is_active')->default(true);
